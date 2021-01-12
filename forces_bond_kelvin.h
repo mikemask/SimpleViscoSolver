@@ -16,7 +16,7 @@ void forces_bond_kelvin(Bond *bond, Part parti, Part partj, double kn, double ks
     inertia = bond -> getInertia();
 
     radius = bond -> getRad();
-    area = pi*radius*radius;
+    area = M_PI*radius*radius;
 
     /*Getting particles position, velocity and rotational speed*/
 

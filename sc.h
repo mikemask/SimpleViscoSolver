@@ -3,7 +3,7 @@ void std_cube(double d, double eps, int np_x, int np_y, int np_z, Part *vec_part
     double pos[3] = {};
     int id = 0;
 
-    double const m = rho*(4./3.)*pi*pow((d/2.),3.);
+    double const m = rho*(4./3.)*M_PI*pow((d/2.),3.);
 
     for (int i=0; i<np_z; i++)
     {

@@ -16,7 +16,7 @@ void forces_bond_undamped(Bond *bond, Part parti, Part partj, double kn, double 
     inertia = bond -> getInertia();
 
     radius = bond -> getRad();
-    area = pi*radius*radius;
+    area = M_PI*radius*radius;
 
     /*Getting particles positions, velocities and torques*/
 

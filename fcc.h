@@ -4,7 +4,7 @@ int fc_cube(double d, double eps, int n_cols, int n_rows, int n_lays, Part *vec_
     int id = 0;
 
     double const a = (d+eps)*sqrt(2.);
-    double const m = rho*(4./3.)*pi*pow((d/2.),3.);
+    double const m = rho*(4./3.)*M_PI*pow((d/2.),3.);
 
     double iterd = floor(n_cols/2.);
     int iter = int(iterd);

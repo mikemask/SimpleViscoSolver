@@ -9,9 +9,6 @@
 #include "part.h"
 #include "distance.h"
 #include "prop_bond.h"
-
-double pi = 3.14159265;
-
 #include "sc.h"
 #include "fcc.h"
 #include "forces_bond_undamped.h"

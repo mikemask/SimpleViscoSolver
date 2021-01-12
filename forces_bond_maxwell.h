@@ -20,7 +20,7 @@ void forces_bond_maxwell(Bond *bond, Part parti, Part partj, double kn, double k
     inertia = bond -> getInertia();
 
     radius = bond -> getRad();
-    area = pi*radius*radius;
+    area = M_PI*radius*radius;
 
     lambdan = mun/(kn*area);
     lambdas = mus/(ks*area);
@@ -141,8 +141,8 @@ void forces_bond_maxwell(Bond *bond, Part parti, Part partj, double kn, double k
     {
         double En, Es;
 
-        En = 2.*kn*area/(pi*radius);
-        Es = 2.*ks*area/(pi*radius);
+        En = 2.*kn*area/(M_PI*radius);
+        Es = 2.*ks*area/(M_PI*radius);
 
         std::cout << "En: " << En << "\n";
 

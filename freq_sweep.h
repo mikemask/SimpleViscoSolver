@@ -24,7 +24,7 @@ void freq_sweep(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_bon
     for (int it=0; it<n_sweep; it++)
     {
         omega = omega_0 + it*omega_inc;
-        t_tot = n_cyc*2*pi*(1./omega);
+        t_tot = n_cyc*2*M_PI*(1./omega);
         n_double = t_out/dt;
         n = (int) n_double;
         n_out = ceil(n/(n_val*n_cyc));

@@ -26,7 +26,7 @@ double pi = 3.14159265;
 int main()
 {
     double rho, d, E, nu, dt, lambda, kn, ks, mun, mus, eps;
-    int type, model, nmax, n_part;
+    int type, model, n_part;
 
     std::cout << "Insert particles density [kg/m3]: ";
     std::cin >> rho;
@@ -121,7 +121,6 @@ int main()
         mus = mun;
     }
 
-    double const i = 3.14159265;
     int n_bond = 0;
     int exp = 0;
 

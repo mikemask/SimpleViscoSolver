@@ -35,6 +35,8 @@ void stress_relax(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_b
     out_file << "timestep,ID,x,y,z,u,v,w,fx,fy,fz,omx,omy,omz,tx,ty,tz\n";
     bool flag = false;
 
+    // Getting indeces of first particle in top layer and last on bottom layer to control limits of integration
+
     double *xi, *xtop, *xbot;
     double d;
     int ind_top, ind_bot;
@@ -65,11 +67,12 @@ void stress_relax(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_b
         }
     }
 
-    std::cout << ind_top << "," << ind_bot << "\n";
-    std::cout << n_part << "\n";
+    // Start of the dynamics
 
     for (int i=0; i<n; i++)
     {
+        // Initialization with top layer displacement
+
         if (i==0)
         {
             for (int j=ind_top; j<n_part; j++)
@@ -86,6 +89,8 @@ void stress_relax(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_b
 
         else
         {
+            // Middle layer integration
+
             for (int j=ind_bot+1; j<ind_top; j++)
             {
                 Part *particle;
@@ -94,6 +99,8 @@ void stress_relax(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_b
                 integrate(particle, dt, i);
             }
         }
+
+        // Forces on bonds
 
         for (int j=0; j<n_bond; j++)
         {
@@ -106,11 +113,11 @@ void stress_relax(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_b
             if (model==0)
                 forces_bond_undamped(bondino, vec_part[IDS[0]], vec_part[IDS[1]], kn, ks, dt, i);
 
-//            else if (model==1)
-//                forces_bond_kelvin(vec_bond[j], vec_part[IDS[0]], vec_part[IDS[1]], kn, ks, mun, mus, dt, i);
-//
-//            else
-//                forces_bond_maxwell(vec_bond[j], vec_part[IDS[0]], vec_part[IDS[1]], kn, ks, mun, mus, dt, i);
+            else if (model==1)
+                forces_bond_kelvin(bondino, vec_part[IDS[0]], vec_part[IDS[1]], kn, ks, mun, mus, dt, i);
+
+            else
+                forces_bond_maxwell(bondino, vec_part[IDS[0]], vec_part[IDS[1]], kn, ks, mun, mus, dt, i);
 
             std::cout << "bond: " << j << "," << vec_bond[j].getForce_s()[0] << "\n";
         }
@@ -152,10 +159,11 @@ void stress_relax(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_b
                 }
             }
 
-            std::cout << "part: " << j << ", Force: " << F_part[0] << "," << F_part[1] << "," << F_part[2] << "\n";
             vec_part[j].setForce(F_part);
             vec_part[j].setTorque(T_part);
         }
+
+        // Values output in .csv file
 
         for(int j=0; j<n_part; j++)
         {

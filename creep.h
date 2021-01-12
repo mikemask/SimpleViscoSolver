@@ -49,6 +49,8 @@ void creep(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_bond, do
     xbot = vec_part[0].getPos();
     d = vec_part[0].getDiameter();
 
+    // Getting ids of first top layer and last bottom layer particles to control integration
+
     for (int i=0; i<n_part; i++)
     {
         xi = vec_part[i].getPos();
@@ -71,11 +73,12 @@ void creep(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_bond, do
         }
     }
 
-    std::cout << ind_top << "," << ind_bot << "\n";
-    std::cout << n_part << "\n";
+    // Start of the dynamics
 
     for (int i=0; i<n; i++)
     {
+        // Integration of middle and top layer
+
         for (int j=ind_bot+1; j<n_part; j++)
         {
             Part *particle;
@@ -83,6 +86,8 @@ void creep(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_bond, do
 
             integrate(particle, dt, i);
         }
+
+        // Forces on bonds
 
         for (int j=0; j<n_bond; j++)
         {
@@ -151,6 +156,8 @@ void creep(int model, int n_part, int n_bond, Part *vec_part, Bond *vec_bond, do
             vec_part[j].setForce(F_part);
             vec_part[j].setTorque(T_part);
         }
+
+        // Values output in .csv file
 
         for(int j=0; j<n_part; j++)
         {
